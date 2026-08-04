@@ -1,3 +1,3 @@
 # Test Article
 
-This is 
+This is a 
