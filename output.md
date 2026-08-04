@@ -1,2 +1,2 @@
 # Test Article
-This is a 
+This is a test 
