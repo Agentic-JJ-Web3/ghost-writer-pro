@@ -179,3 +179,9 @@ detect_context() {
         echo "explanation"
     fi
 }
+get_commit_message() {
+    local context="$1"
+    local messages="${CONTEXT_MSGS[$context]:-${CONTEXT_MSGS[explanation]}}"
+    IFS='|' read -ra msgs <<< "$messages"
+    echo "${msgs[$RANDOM % ${#msgs[@]}]}"
+}
