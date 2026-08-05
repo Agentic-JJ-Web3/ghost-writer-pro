@@ -1,0 +1,151 @@
+[2026-08-05 02:17:54] [INFO] Loading configuration from: /c/Users/HP/Desktop/Ghostwriter/ghostwriter.yml
+[2026-08-05 02:17:55] [DEBUG] Configuration loaded:
+[2026-08-05 02:17:55] [DEBUG]   INPUT: test.md
+[2026-08-05 02:17:55] [DEBUG]   OUTPUT: output.md
+[2026-08-05 02:17:56] [DEBUG]   START: 2026-08-04 09:00
+[2026-08-05 02:17:56] [DEBUG]   END: 2026-08-04 17:00
+[2026-08-05 02:17:56] [DEBUG]   MIN_DELAY: 1
+[2026-08-05 02:17:56] [DEBUG]   MAX_DELAY: 3
+[2026-08-05 02:17:58] [DEBUG] Validation passed
+[2026-08-05 02:17:59] [DEBUG]   Start epoch: 1785830400
+[2026-08-05 02:18:00] [DEBUG]   End epoch: 1785859200
+[2026-08-05 02:18:01] [INFO] Word count: 11
+[2026-08-05 02:18:01] [INFO] Total timeline: 28800 seconds (8 hours)
+[2026-08-05 02:18:01] [INFO] Average spacing: 2618 seconds
+[2026-08-05 02:18:01] [INFO] Starting fresh writing session
+[2026-08-05 02:18:02] [INFO] Starting main writing loop...
+[2026-08-05 02:18:02] [INFO] Total words: 11
+[2026-08-05 02:18:03] [DEBUG] Commit: 2026-08-04 09:00:00 - Add heading: Test Article
+[2026-08-05 02:18:08] [DEBUG] Commit: 2026-08-04 09:00:01 - Detail implementation
+[2026-08-05 02:18:11] [DEBUG] Commit: 2026-08-04 09:43:42 - Clarify process
+[2026-08-05 02:18:16] [DEBUG] Commit: 2026-08-04 10:27:27 - Describe behavior
+[2026-08-05 02:18:22] [DEBUG] Commit: 2026-08-04 11:11:11 - Detail implementation
+[2026-08-05 02:18:27] [DEBUG] Commit: 2026-08-04 11:54:40 - Detail implementation
+[2026-08-05 02:18:32] [DEBUG] Commit: 2026-08-04 12:38:11 - Detail implementation
+[2026-08-05 02:18:37] [DEBUG] Commit: 2026-08-04 13:21:58 - Clarify process
+[2026-08-05 02:18:42] [DEBUG] Commit: 2026-08-04 14:05:28 - Detail implementation
+[2026-08-05 02:18:43] [SUCCESS] Writing complete!
+[2026-08-05 02:22:55] [INFO] Loading configuration from: /c/Users/HP/Desktop/Ghostwriter/ghostwriter.yml
+[2026-08-05 02:22:55] [DEBUG] Configuration loaded:
+[2026-08-05 02:22:55] [DEBUG]   INPUT: test.md
+[2026-08-05 02:22:55] [DEBUG]   OUTPUT: output.md
+[2026-08-05 02:22:56] [DEBUG]   START: 2026-08-04 09:00
+[2026-08-05 02:22:56] [DEBUG]   END: 2026-08-04 17:00
+[2026-08-05 02:22:56] [DEBUG]   MIN_DELAY: 1
+[2026-08-05 02:22:56] [DEBUG]   MAX_DELAY: 3
+[2026-08-05 02:22:57] [DEBUG] Validation passed
+[2026-08-05 02:22:57] [DEBUG]   Start epoch: 1785830400
+[2026-08-05 02:22:57] [DEBUG]   End epoch: 1785859200
+[2026-08-05 02:22:57] [INFO] Word count: 11
+[2026-08-05 02:22:57] [INFO] Total timeline: 28800 seconds (8 hours)
+[2026-08-05 02:22:58] [INFO] Average spacing: 2618 seconds
+[2026-08-05 02:22:58] [INFO] Starting fresh writing session
+[2026-08-05 02:27:25] [INFO] Loading configuration from: /c/Users/HP/Desktop/Ghostwriter/ghostwriter.yml
+[2026-08-05 02:27:26] [DEBUG] Configuration loaded:
+[2026-08-05 02:27:26] [DEBUG]   INPUT: test.md
+[2026-08-05 02:27:26] [DEBUG]   OUTPUT: output.md
+[2026-08-05 02:27:26] [DEBUG]   START: 2026-08-04 09:00
+[2026-08-05 02:27:26] [DEBUG]   END: 2026-08-04 17:00
+[2026-08-05 02:27:26] [DEBUG]   MIN_DELAY: 1
+[2026-08-05 02:27:26] [DEBUG]   MAX_DELAY: 3
+[2026-08-05 02:27:27] [DEBUG] Validation passed
+[2026-08-05 02:27:27] [DEBUG]   Start epoch: 1785830400
+[2026-08-05 02:27:27] [DEBUG]   End epoch: 1785859200
+[2026-08-05 02:27:27] [INFO] Word count: 11
+[2026-08-05 02:27:28] [INFO] Total timeline: 28800 seconds (8 hours)
+[2026-08-05 02:27:28] [INFO] Average spacing: 2618 seconds
+[2026-08-05 02:27:28] [INFO] Starting fresh writing session
+[2026-08-05 02:27:29] [INFO] Starting main writing loop...
+[2026-08-05 02:27:29] [INFO] Total words: 11
+[2026-08-05 02:27:30] [DEBUG] Commit: 2026-08-04 09:00:00 - Add heading: Test Article
+[2026-08-05 02:27:34] [DEBUG] Commit: 2026-08-04 09:00:00 - Detail implementation
+[2026-08-05 02:27:37] [DEBUG] Commit: 2026-08-04 09:43:41 - Detail implementation
+[2026-08-05 02:27:39] [DEBUG] Commit: 2026-08-04 10:27:25 - Explain mechanism
+[2026-08-05 02:27:44] [DEBUG] Commit: 2026-08-04 11:10:58 - Clarify process
+[2026-08-05 02:27:48] [DEBUG] Commit: 2026-08-04 11:54:45 - Clarify process
+[2026-08-05 02:27:52] [DEBUG] Commit: 2026-08-04 12:38:27 - Describe behavior
+[2026-08-05 02:27:55] [DEBUG] Commit: 2026-08-04 13:22:12 - Describe behavior
+[2026-08-05 02:27:59] [DEBUG] Commit: 2026-08-04 14:05:42 - Detail implementation
+[2026-08-05 02:28:00] [ACTION] ✍️  Rewriting paragraph...
+[2026-08-05 02:28:11] [SUCCESS] Writing complete!
+[2026-08-05 02:30:31] [INFO] Loading configuration from: /c/Users/HP/Desktop/Ghostwriter/ghostwriter.yml
+[2026-08-05 02:30:32] [DEBUG] Configuration loaded:
+[2026-08-05 02:30:32] [DEBUG]   INPUT: test.md
+[2026-08-05 02:30:32] [DEBUG]   OUTPUT: output.md
+[2026-08-05 02:30:32] [DEBUG]   START: 2026-08-04 09:00
+[2026-08-05 02:30:32] [DEBUG]   END: 2026-08-04 17:00
+[2026-08-05 02:30:32] [DEBUG]   MIN_DELAY: 1
+[2026-08-05 02:30:32] [DEBUG]   MAX_DELAY: 3
+[2026-08-05 02:30:33] [DEBUG] Validation passed
+[2026-08-05 02:30:33] [DEBUG]   Start epoch: 1785830400
+[2026-08-05 02:30:33] [DEBUG]   End epoch: 1785859200
+[2026-08-05 02:30:34] [INFO] Word count: 11
+[2026-08-05 02:30:34] [INFO] Total timeline: 28800 seconds (8 hours)
+[2026-08-05 02:30:34] [INFO] Average spacing: 2618 seconds
+[2026-08-05 02:30:34] [INFO] Starting fresh writing session
+[2026-08-05 02:30:36] [INFO] Starting main writing loop...
+[2026-08-05 02:30:36] [INFO] Total words: 11
+[2026-08-05 02:30:36] [DEBUG] Commit: 2026-08-04 09:00:00 - Add heading: Test Article
+[2026-08-05 02:30:41] [DEBUG] Commit: 2026-08-04 09:00:00 - Detail implementation
+[2026-08-05 02:30:44] [DEBUG] Commit: 2026-08-04 09:43:35 - Detail implementation
+[2026-08-05 02:30:47] [DEBUG] Commit: 2026-08-04 10:27:22 - Explain mechanism
+[2026-08-05 02:30:51] [DEBUG] Commit: 2026-08-04 11:11:03 - Clarify process
+[2026-08-05 02:30:55] [DEBUG] Commit: 2026-08-04 11:54:50 - Describe behavior
+[2026-08-05 02:30:59] [DEBUG] Commit: 2026-08-04 12:38:19 - Describe behavior
+[2026-08-05 02:31:02] [DEBUG] Commit: 2026-08-04 13:22:00 - Describe behavior
+[2026-08-05 02:31:06] [DEBUG] Commit: 2026-08-04 14:05:28 - Explain mechanism
+[2026-08-05 02:31:07] [SUCCESS] Writing complete!
+[2026-08-05 02:33:13] [INFO] Loading configuration from: /c/Users/HP/Desktop/Ghostwriter/ghostwriter.yml
+[2026-08-05 02:33:14] [DEBUG] Configuration loaded:
+[2026-08-05 02:33:14] [DEBUG]   INPUT: my-article.md
+[2026-08-05 02:33:14] [DEBUG]   OUTPUT: final-article.md
+[2026-08-05 02:33:14] [DEBUG]   START: 2026-08-05 09:00
+[2026-08-05 02:33:14] [DEBUG]   END: 2026-08-06 17:00
+[2026-08-05 02:33:14] [DEBUG]   MIN_DELAY: 2
+[2026-08-05 02:33:15] [DEBUG]   MAX_DELAY: 8
+[2026-08-05 02:33:15] [DEBUG] Validation passed
+[2026-08-05 02:33:15] [DEBUG]   Start epoch: 1785916800
+[2026-08-05 02:33:16] [DEBUG]   End epoch: 1786032000
+[2026-08-05 02:33:16] [INFO] Word count: 39
+[2026-08-05 02:33:16] [INFO] Total timeline: 115200 seconds (32 hours)
+[2026-08-05 02:33:16] [INFO] Average spacing: 2953 seconds
+[2026-08-05 02:33:16] [INFO] Starting fresh writing session
+[2026-08-05 02:33:17] [INFO] Starting main writing loop...
+[2026-08-05 02:33:18] [INFO] Total words: 39
+[2026-08-05 02:33:19] [DEBUG] Commit: 2026-08-05 09:00:00 - Add heading: My Great Article
+[2026-08-05 02:33:20] [DEBUG] Commit: 2026-08-05 09:00:00 - Add spacing
+[2026-08-05 02:33:22] [DEBUG] Commit: 2026-08-05 09:00:00 - Add heading: Introduction
+[2026-08-05 02:33:28] [DEBUG] Commit: 2026-08-05 09:00:00 - Clarify process
+[2026-08-05 02:33:32] [DEBUG] Commit: 2026-08-05 09:49:12 - Explain mechanism
+[2026-08-05 02:33:36] [DEBUG] Commit: 2026-08-05 10:38:24 - Explain mechanism
+[2026-08-05 02:33:43] [DEBUG] Commit: 2026-08-05 11:27:36 - Open discussion
+[2026-08-05 02:33:47] [DEBUG] Commit: 2026-08-05 12:16:47 - Describe behavior
+[2026-08-05 02:33:51] [DEBUG] Commit: 2026-08-05 13:06:04 - Detail implementation
+[2026-08-05 02:33:57] [DEBUG] Commit: 2026-08-05 13:55:25 - Clarify process
+[2026-08-05 02:34:03] [DEBUG] Commit: 2026-08-05 14:44:39 - Clarify process
+[2026-08-05 02:34:07] [DEBUG] Commit: 2026-08-05 15:33:44 - Clarify process
+[2026-08-05 02:34:14] [DEBUG] Commit: 2026-08-05 16:22:51 - Explain mechanism
+[2026-08-05 02:34:16] [DEBUG] Commit: 2026-08-05 09:00:00 - Add spacing
+[2026-08-05 02:34:19] [DEBUG] Commit: 2026-08-05 09:00:00 - Add heading: Main Content
+[2026-08-05 02:34:25] [DEBUG] Commit: 2026-08-05 09:00:00 - Detail implementation
+[2026-08-05 02:34:28] [DEBUG] Commit: 2026-08-05 09:49:21 - Clarify process
+[2026-08-05 02:34:34] [DEBUG] Commit: 2026-08-05 10:38:28 - Detail implementation
+[2026-08-05 02:34:38] [DEBUG] Commit: 2026-08-05 11:27:35 - Detail implementation
+[2026-08-05 02:34:42] [DEBUG] Commit: 2026-08-05 12:16:50 - Describe behavior
+[2026-08-05 02:34:48] [DEBUG] Commit: 2026-08-05 13:06:10 - Define structure
+[2026-08-05 02:34:54] [DEBUG] Commit: 2026-08-05 13:55:25 - Describe behavior
+[2026-08-05 02:34:58] [DEBUG] Commit: 2026-08-05 14:44:38 - Detail implementation
+[2026-08-05 02:35:04] [DEBUG] Commit: 2026-08-05 15:33:46 - Describe behavior
+[2026-08-05 02:35:06] [DEBUG] Commit: 2026-08-05 09:00:00 - Add spacing
+[2026-08-05 02:35:07] [ACTION] ✍️  Rewriting paragraph...
+[2026-08-05 02:35:14] [DEBUG] Commit: 2026-08-05 09:00:00 - Add heading: Conclusion
+[2026-08-05 02:35:21] [DEBUG] Commit: 2026-08-05 09:00:00 - Conclude argument
+[2026-08-05 02:35:24] [DEBUG] Commit: 2026-08-05 09:49:19 - Clarify process
+[2026-08-05 02:35:29] [DEBUG] Commit: 2026-08-05 10:38:27 - Clarify process
+[2026-08-05 02:35:36] [DEBUG] Commit: 2026-08-05 11:27:32 - Clarify process
+[2026-08-05 02:35:40] [DEBUG] Commit: 2026-08-05 12:16:43 - Explain mechanism
+[2026-08-05 02:35:44] [DEBUG] Commit: 2026-08-05 13:05:56 - Explain mechanism
+[2026-08-05 02:35:48] [DEBUG] Commit: 2026-08-05 13:55:13 - Describe behavior
+[2026-08-05 02:35:54] [DEBUG] Commit: 2026-08-05 14:44:24 - Clarify process
+[2026-08-05 02:36:02] [DEBUG] Commit: 2026-08-05 15:33:46 - Wrap discussion
+[2026-08-05 02:36:04] [SUCCESS] Writing complete!

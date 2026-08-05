@@ -100,6 +100,12 @@ show_progress() {
     local current=$1
     local total=$2
     local width=50
+    
+    # Avoid division by zero
+    if [[ $total -eq 0 ]]; then
+        return
+    fi
+    
     local percent=$((current * 100 / total))
     local filled=$((percent * width / 100))
     local empty=$((width - filled))
@@ -111,13 +117,17 @@ show_progress() {
     
     # Calculate ETA
     local eta=""
-    if [[ $current -gt 0 && $CURRENT_TIME -gt 0 ]]; then
+    if [[ $current -gt 0 && $CURRENT_TIME -gt 0 && $START_EPOCH -gt 0 ]]; then
         local elapsed=$((CURRENT_TIME - START_EPOCH))
-        local avg_time=$((elapsed / current))
-        local remaining=$(( (total - current) * avg_time ))
-        local hours=$((remaining / 3600))
-        local mins=$(( (remaining % 3600) / 60 ))
-        eta="${hours}h ${mins}m remaining"
+        if [[ $elapsed -gt 0 ]]; then
+            local avg_time=$((elapsed / current))
+            local remaining=$(( (total - current) * avg_time ))
+            local hours=$((remaining / 3600))
+            local mins=$(( (remaining % 3600) / 60 ))
+            eta="${hours}h ${mins}m remaining"
+        else
+            eta="calculating..."
+        fi
     else
         eta="calculating..."
     fi
@@ -307,6 +317,9 @@ calculate_timeline() {
     TOTAL_SECONDS=$((END_EPOCH - START_EPOCH))
     STEP=$((TOTAL_SECONDS / WORD_COUNT))
     
+    # Ensure minimum step of 1 second
+    [[ $STEP -lt 1 ]] && STEP=1
+    
     log_info "Word count: $WORD_COUNT"
     log_info "Total timeline: $TOTAL_SECONDS seconds ($((TOTAL_SECONDS / 3600)) hours)"
     log_info "Average spacing: $STEP seconds"
@@ -316,11 +329,26 @@ calculate_timeline() {
 # Session Detection
 ##############################
 
+# Helper function to safely convert time string to number
+to_decimal() {
+    local value="$1"
+    # Remove leading zeros
+    value=$(echo "$value" | sed 's/^0*//')
+    # If empty, set to 0
+    [[ -z "$value" ]] && value=0
+    echo "$value"
+}
+
 is_working_hours() {
     local timestamp=$1
-    local hour=$(date -d "@$timestamp" +%H)
-    local min=$(date -d "@$timestamp" +%M)
-    local time_num=$((10#$hour * 100 + 10#$min))
+    local hour=$(date -d "@$timestamp" +%H 2>/dev/null || echo "00")
+    local min=$(date -d "@$timestamp" +%M 2>/dev/null || echo "00")
+    
+    # Convert to decimal safely
+    hour=$(to_decimal "$hour")
+    min=$(to_decimal "$min")
+    
+    local time_num=$((hour * 100 + min))
     
     case "$SESSION_PATTERN" in
         "coding")
@@ -336,7 +364,7 @@ is_working_hours() {
         "casual")
             [[ $time_num -ge 1000 && $time_num -lt 1400 ]] || \
             [[ $time_num -ge 1500 && $time_num -lt 1900 ]] || \
-            [[ $time_num -ge 2100 && $time_num -lt 0100 ]]
+            [[ $time_num -ge 2100 && $time_num -lt 100 ]]
             ;;
         *)  # balanced
             [[ $time_num -ge 800 && $time_num -lt 1200 ]] || \
@@ -391,19 +419,18 @@ get_commit_message() {
     local context="$1"
     
     # Context-aware message templates
-    declare -A CONTEXT_MSGS=(
-        ["introduction"]="Introduce concept|Set context|Open discussion|Frame problem"
-        ["explanation"]="Explain mechanism|Clarify process|Describe behavior|Detail implementation"
-        ["example"]="Add example|Show usage|Demonstrate with code|Provide illustration"
-        ["code"]="Write code block|Add function|Implement logic|Define structure"
-        ["bash"]="Explain Bash syntax|Add shell command|Describe pipeline|Show scripting"
-        ["linux"]="Describe Linux feature|Explain kernel concept|Add system call|Detail filesystem"
-        ["docker"]="Add Dockerfile|Explain container|Show docker command|Describe image build"
-        ["networking"]="Explain protocol|Add network config|Describe routing|Show connectivity"
-        ["security"]="Discuss security|Add auth method|Explain encryption|Detail permissions"
-        ["conclusion"]="Summarize key points|Conclude argument|Wrap discussion|Final thoughts"
-        ["editing"]="Refine paragraph|Improve wording|Enhance clarity|Polish content"
-    )
+    declare -A CONTEXT_MSGS
+    CONTEXT_MSGS["introduction"]="Introduce concept|Set context|Open discussion|Frame problem"
+    CONTEXT_MSGS["explanation"]="Explain mechanism|Clarify process|Describe behavior|Detail implementation"
+    CONTEXT_MSGS["example"]="Add example|Show usage|Demonstrate with code|Provide illustration"
+    CONTEXT_MSGS["code"]="Write code block|Add function|Implement logic|Define structure"
+    CONTEXT_MSGS["bash"]="Explain Bash syntax|Add shell command|Describe pipeline|Show scripting"
+    CONTEXT_MSGS["linux"]="Describe Linux feature|Explain kernel concept|Add system call|Detail filesystem"
+    CONTEXT_MSGS["docker"]="Add Dockerfile|Explain container|Show docker command|Describe image build"
+    CONTEXT_MSGS["networking"]="Explain protocol|Add network config|Describe routing|Show connectivity"
+    CONTEXT_MSGS["security"]="Discuss security|Add auth method|Explain encryption|Detail permissions"
+    CONTEXT_MSGS["conclusion"]="Summarize key points|Conclude argument|Wrap discussion|Final thoughts"
+    CONTEXT_MSGS["editing"]="Refine paragraph|Improve wording|Enhance clarity|Polish content"
     
     local messages="${CONTEXT_MSGS[$context]:-${CONTEXT_MSGS[explanation]}}"
     IFS='|' read -ra msgs <<< "$messages"
@@ -424,22 +451,50 @@ process_markdown_element() {
             echo "$content" >> "$OUTPUT"
             local msg="Add heading: $(echo "$content" | sed 's/^#* //')"
             commit_change "$current_time" "$msg"
+            # Count words in heading
+            local heading_words=$(echo "$content" | wc -w | tr -d ' ')
+            CURRENT_WORD_INDEX=$((CURRENT_WORD_INDEX + heading_words))
+            COMMIT_COUNT=$((COMMIT_COUNT + 1))
+            show_progress "$CURRENT_WORD_INDEX" "$WORD_COUNT"
+            save_progress
             ;;
         "code_block")
             echo "$content" >> "$OUTPUT"
             commit_change "$current_time" "Add code block"
+            # Count words in code block
+            local code_words=$(echo "$content" | wc -w | tr -d ' ')
+            CURRENT_WORD_INDEX=$((CURRENT_WORD_INDEX + code_words))
+            COMMIT_COUNT=$((COMMIT_COUNT + 1))
+            show_progress "$CURRENT_WORD_INDEX" "$WORD_COUNT"
+            save_progress
             ;;
         "list_item")
             echo "$content" >> "$OUTPUT"
             commit_change "$current_time" "Add list item"
+            # Count words in list item
+            local list_words=$(echo "$content" | wc -w | tr -d ' ')
+            CURRENT_WORD_INDEX=$((CURRENT_WORD_INDEX + list_words))
+            COMMIT_COUNT=$((COMMIT_COUNT + 1))
+            show_progress "$CURRENT_WORD_INDEX" "$WORD_COUNT"
+            save_progress
             ;;
         "blockquote")
             echo "$content" >> "$OUTPUT"
             commit_change "$current_time" "Add quote"
+            local quote_words=$(echo "$content" | wc -w | tr -d ' ')
+            CURRENT_WORD_INDEX=$((CURRENT_WORD_INDEX + quote_words))
+            COMMIT_COUNT=$((COMMIT_COUNT + 1))
+            show_progress "$CURRENT_WORD_INDEX" "$WORD_COUNT"
+            save_progress
             ;;
         "table")
             echo "$content" >> "$OUTPUT"
             commit_change "$current_time" "Add table"
+            local table_words=$(echo "$content" | wc -w | tr -d ' ')
+            CURRENT_WORD_INDEX=$((CURRENT_WORD_INDEX + table_words))
+            COMMIT_COUNT=$((COMMIT_COUNT + 1))
+            show_progress "$CURRENT_WORD_INDEX" "$WORD_COUNT"
+            save_progress
             ;;
         "blank_line")
             echo "" >> "$OUTPUT"
@@ -455,8 +510,13 @@ process_words() {
     local line="$1"
     local current_time="$2"
     
-    # Handle word-by-word typing
-    for word in $line; do
+    # Count words in this line
+    local line_words=($line)
+    
+    for word in "${line_words[@]}"; do
+        # Skip empty words
+        [[ -z "$word" ]] && continue
+        
         write_word "$word" "$current_time"
         current_time=$((current_time + STEP + (RANDOM % 20 - 10)))
         COMMIT_COUNT=$((COMMIT_COUNT + 1))
@@ -478,7 +538,7 @@ write_word() {
     
     # Determine if we'll make a typo
     local make_typo=0
-    if awk -v rate="$TYPO_RATE" 'BEGIN { srand(); exit !(rand() < rate) }'; then
+    if awk -v rate="$TYPO_RATE" 'BEGIN { srand(); exit !(rand() < rate) }' 2>/dev/null; then
         make_typo=1
     fi
     
@@ -513,7 +573,7 @@ write_word() {
             printf "\r%s" "$typed"
         fi
         
-        local char_delay=$(awk -v speed="$TYPING_SPEED" 'BEGIN { printf "%.2f", 1/speed }')
+        local char_delay=$(awk -v speed="$TYPING_SPEED" 'BEGIN { printf "%.2f", 1/speed }' 2>/dev/null || echo "0.02")
         sleep "$char_delay"
     done
     
@@ -536,7 +596,7 @@ write_word() {
         
         typed=""
         for ((i=0; i<${#word}; i++)); do
-            char="${word:$i:1}"
+            local char="${word:$i:1}"
             typed+="$char"
             if [[ $VERBOSE -eq 1 ]]; then
                 printf "\r%s" "$typed"
@@ -561,7 +621,7 @@ write_word() {
 commit_change() {
     local timestamp="$1"
     local message="$2"
-    local date_str=$(date -d "@$timestamp" "+%Y-%m-%d %H:%M:%S")
+    local date_str=$(date -d "@$timestamp" "+%Y-%m-%d %H:%M:%S" 2>/dev/null || date "+%Y-%m-%d %H:%M:%S")
     
     git add "$OUTPUT" >/dev/null 2>&1
     
@@ -649,8 +709,10 @@ show_statistics() {
         local mins=$(( (elapsed % 3600) / 60 ))
         echo "Elapsed Timeline: ${hours}h ${mins}m"
         
-        local avg_interval=$((elapsed / CURRENT_WORD_INDEX))
-        echo "Average Commit Interval: ${avg_interval} seconds"
+        if [[ $CURRENT_WORD_INDEX -gt 0 ]]; then
+            local avg_interval=$((elapsed / CURRENT_WORD_INDEX))
+            echo "Average Commit Interval: ${avg_interval} seconds"
+        fi
     fi
     
     echo "Output: $OUTPUT"
@@ -663,77 +725,56 @@ show_statistics() {
 ##############################
 
 write_article() {
-    local start_word=1
+    local start_line=1
     
     # Resume support
     if [[ $RESUME -eq 1 ]] && load_progress; then
-        start_word=$((CURRENT_WORD_INDEX + 1))
-        log_info "Resuming from word $start_word"
+        log_info "Resuming from word $CURRENT_WORD_INDEX"
     else
         # Initialize output file
         > "$OUTPUT"
+        CURRENT_WORD_INDEX=0
+        COMMIT_COUNT=0
         log_info "Starting fresh writing session"
     fi
     
     # Ensure we start during working hours
     CURRENT_TIME=$(next_working_time $START_EPOCH)
     
-    # Count total words
-    local total_words=$(wc -w < "$INPUT" | tr -d ' ')
-    local current_word=0
-    
     trap interrupt_handler INT TERM
     
     log_info "Starting main writing loop..."
-    log_info "Total words: $total_words"
+    log_info "Total words: $WORD_COUNT"
     
     # Read and process file line by line
-    local line_num=0
     while IFS= read -r line || [[ -n "$line" ]]; do
-        line_num=$((line_num + 1))
-        
-        # Skip lines before resume point
-        if [[ $line_num -lt $start_word ]]; then
-            continue
-        fi
         
         # Detect and process markdown elements
         if [[ -z "$line" ]]; then
             # Blank line
             process_markdown_element "blank_line" "" "$CURRENT_TIME"
-            continue
-        elif [[ "$line" =~ ^#{1,6}[[:space:]] ]]; then
+        elif [[ "$line" =~ ^#{1,6}[[:space:]]+ ]]; then
             # Heading
             process_markdown_element "heading" "$line" "$CURRENT_TIME"
-            continue
-        elif [[ "$line" =~ ^[[:space:]]*[-*+][[:space:]] ]]; then
+        elif [[ "$line" =~ ^[[:space:]]*[-*+][[:space:]]+ ]]; then
             # List item
             process_markdown_element "list_item" "$line" "$CURRENT_TIME"
-            continue
         elif [[ "$line" =~ ^[[:space:]]*[0-9]+\. ]]; then
             # Numbered list
             process_markdown_element "list_item" "$line" "$CURRENT_TIME"
-            continue
-        elif [[ "$line" =~ ^[[:space:]]*> ]]; then
+        elif [[ "$line" =~ ^[[:space:]]*\> ]]; then
             # Blockquote
             process_markdown_element "blockquote" "$line" "$CURRENT_TIME"
-            continue
-        elif [[ "$line" =~ ^[[:space:]]*``` ]]; then
+        elif [[ "$line" =~ ^[[:space:]]*\`\`\` ]]; then
             # Code block
             process_markdown_element "code_block" "$line" "$CURRENT_TIME"
-            continue
         elif [[ "$line" =~ ^[[:space:]]*\| ]]; then
             # Table row
             process_markdown_element "table" "$line" "$CURRENT_TIME"
-            continue
         else
             # Regular text
             process_markdown_element "text" "$line" "$CURRENT_TIME"
         fi
-        
-        # Add newline after each line
-        echo "" >> "$OUTPUT"
-        CURRENT_TIME=$((CURRENT_TIME + 1))
         
         # Random pauses and breaks
         if (( RANDOM % 25 == 0 )); then
@@ -744,13 +785,15 @@ write_article() {
         fi
         
         # Paragraph rewrite chance
-        if (( RANDOM % 100 < $(awk "BEGIN {print $REWRITE_PROB * 100}") )); then
+        if (( RANDOM % 100 < $(awk "BEGIN {printf \"%.0f\", $REWRITE_PROB * 100}" 2>/dev/null || echo "15") )); then
             log_action "✍️  Rewriting paragraph..."
             random_pause 5 15
         fi
         
         # Session change detection
-        local hour=$(date -d "@$CURRENT_TIME" +%H)
+        local hour=$(date -d "@$CURRENT_TIME" +%H 2>/dev/null || echo "12")
+        hour=$(to_decimal "$hour")
+        
         if [[ $hour -eq 12 && $((RANDOM % 3)) -eq 0 ]]; then
             log_action "🍽️ Lunch break (1 hour)"
             CURRENT_TIME=$((CURRENT_TIME + 3600))
@@ -806,7 +849,7 @@ main() {
     echo -e "${GREEN}✅ Done!${NC}"
     echo -e "📝 Output: $OUTPUT"
     echo -e "📊 Log: $LOG_FILE"
-    echo -e "📈 Commits: $(git rev-list --count HEAD)"
+    echo -e "📈 Commits: $(git rev-list --count HEAD 2>/dev/null || echo '0')"
     echo ""
     echo -e "${CYAN}💡 View history:${NC} git log --oneline --graph"
 }
