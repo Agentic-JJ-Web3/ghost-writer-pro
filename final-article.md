@@ -1,4 +1,4 @@
 # My Great Article
 
 ## Introduction
-This is the 
+This is the introduction 
