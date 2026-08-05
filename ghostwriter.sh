@@ -305,3 +305,137 @@ rewrite_paragraph() {
         echo -n "" >> "$OUTPUT"  # Remove last word
         sleep 0.2
     done
+
+   # Remove the paragraph
+    sed -i '' -e :a -e '/^\n*$/{$d;N;};/\n$/ba' "$OUTPUT" 2>/dev/null || true
+    
+    # Retype it differently (simplified - just append as new)
+    echo "" >> "$OUTPUT"
+    echo " [rewritten] " >> "$OUTPUT"
+    
+    # Commit the rewrite
+    local rewrite_date=$(date -d "@$current_time" "+%Y-%m-%d %H:%M:%S")
+    git add "$OUTPUT"
+    GIT_AUTHOR_DATE="$rewrite_date" GIT_COMMITTER_DATE="$rewrite_date" \
+        git commit -m "Refine paragraph" >/dev/null 2>&1
+}
+
+##############################
+# Main writing loop
+##############################
+
+echo "👻 GhostWriter Pro Starting..."
+echo "Input: $INPUT"
+echo "Output: $OUTPUT"
+echo "Time window: $START → $END"
+echo "Session pattern: $SESSION_PATTERN"
+echo "Typing speed: $TYPING_SPEED chars/sec"
+echo "Typo rate: $TYPO_RATE"
+echo "---"
+
+WORD_COUNT=$(wc -w < "$INPUT")
+TOTAL_AVAILABLE=$TOTAL_SECONDS
+STEP=$((TOTAL_AVAILABLE / WORD_COUNT))
+
+current_time=$START_EPOCH
+word_index=0
+
+# Ensure we start during working hours
+current_time=$(next_working_time $current_time)
+
+# Read file line by line
+while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ -z "$line" ]]; then
+        echo "" >> "$OUTPUT"
+        git add "$OUTPUT"
+        local empty_date=$(date -d "@$current_time" "+%Y-%m-%d %H:%M:%S")
+        GIT_AUTHOR_DATE="$empty_date" GIT_COMMITTER_DATE="$empty_date" \
+            git commit -m "Add spacing" >/dev/null 2>&1
+        continue
+    fi
+    
+    # Detect context for this line
+    context=$(detect_context "$line")
+    
+    for word in $line; do
+        word_index=$((word_index + 1))
+        
+        # Ensure we're in working hours
+        if ! is_working_hours $current_time; then
+            local next_time=$(next_working_time $current_time)
+            local gap=$((next_time - current_time))
+            
+            # Sleep overnight or long break
+            local gap_hours=$((gap / 3600))
+            echo "🌙 Overnight gap: ${gap_hours}h (sleeping...)"
+            
+            # Add a "morning start" commit
+            local gap_date=$(date -d "@$next_time" "+%Y-%m-%d %H:%M:%S")
+            GIT_AUTHOR_DATE="$gap_date" GIT_COMMITTER_DATE="$gap_date" \
+                git commit --allow-empty -m "Start new session" >/dev/null 2>&1
+            
+            current_time=$next_time
+            
+            # Simulate morning routine
+            echo "☕ Morning coffee..."
+            sleep 2
+        fi
+        
+        # Current date for this word
+        word_date=$(date -d "@$current_time" "+%Y-%m-%d %H:%M:%S")
+        
+        # Show context if verbose
+        [[ -n "$VERBOSE" ]] && echo -e "\n[${word_date}] Context: $context"
+        
+        # Type the word
+        type_word "$word" "$current_time"
+        
+        # Commit with context-aware message
+        local msg=$(get_commit_message "$context")
+        git add "$OUTPUT"
+        GIT_AUTHOR_DATE="$word_date" GIT_COMMITTER_DATE="$word_date" \
+            git commit -m "$msg" >/dev/null 2>&1
+        
+        # Show progress
+        echo "✓ [$word_index/$WORD_COUNT] '$word' → $msg"
+        
+        # Advance time with jitter
+        local jitter=$((RANDOM % 20 - 10))
+        current_time=$((current_time + STEP + jitter))
+        
+        # Random short break
+        if (( RANDOM % 25 == 0 )); then
+            local break=$((RANDOM % 120 + 30))
+            echo "  ☕ Short break (${break}s)"
+            sleep $((break / 10))  # Compressed for demo
+            current_time=$((current_time + break))
+        fi
+        
+        # Paragraph rewrite chance
+        if (( RANDOM % 100 < $(awk "BEGIN {print $REWRITE_PROB * 100}") )); then
+            rewrite_paragraph "$current_time"
+        fi
+        
+        # Session change detection
+        local hour=$(date -d "@$current_time" +%H)
+        if [[ $hour -eq 12 && $((RANDOM % 3)) -eq 0 ]]; then
+            echo "  🍽️ Lunch break"
+            current_time=$((current_time + 3600))  # 1 hour lunch
+        fi
+        
+        if [[ $hour -eq 17 && $((RANDOM % 2)) -eq 0 ]]; then
+            echo "  🏠 End of day"
+            current_time=$((current_time + 7200))  # Evening break
+        fi
+    done
+    
+    echo "" >> "$OUTPUT"  # Newline after line
+    
+done < "$INPUT"
+
+echo ""
+echo "✅ Writing complete!"
+echo "📝 Output: $OUTPUT"
+echo "📊 Commits: $(git rev-list --count HEAD)"
+echo "🕐 Last commit: $(git log -1 --format=%ai)"
+echo ""
