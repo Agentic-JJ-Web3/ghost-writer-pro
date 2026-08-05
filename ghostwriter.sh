@@ -58,3 +58,22 @@ declare -A CONTEXT_MSGS=(
     ["conclusion"]="Summarize key points|Conclude argument|Wrap discussion|Final thoughts"
     ["editing"]="Refine paragraph|Improve wording|Enhance clarity|Polish content"
 )
+
+##############################
+# Parse arguments
+##############################
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --input) INPUT="$2"; shift 2 ;;
+        --output) OUTPUT="$2"; shift 2 ;;
+        --start) START="$2"; shift 2 ;;
+        --end) END="$2"; shift 2 ;;
+        --typing-speed) TYPING_SPEED="$2"; shift 2 ;;
+        --typo-rate) TYPO_RATE="$2"; shift 2 ;;
+        --session) SESSION_PATTERN="$2"; shift 2 ;;
+        --verbose) VERBOSE=1; shift ;;
+        *) echo "Unknown: $1"; exit 1 ;;
+    esac
+done
+  
