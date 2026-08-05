@@ -147,3 +147,35 @@ next_working_time() {
     done
     echo $current
 }
+
+##############################
+# Context detection
+##############################
+
+detect_context() {
+    local line="$1"
+    local line_lower=$(echo "$line" | tr '[:upper:]' '[:lower:]')
+    
+    # Check for keywords
+    if echo "$line_lower" | grep -q -E "^(# |## |# )?introduction|overview|background"; then
+        echo "introduction"
+    elif echo "$line_lower" | grep -q -E "example|sample|instance|illustrate"; then
+        echo "example"
+    elif echo "$line_lower" | grep -q -E "code|function|def |class |import|return|console\.log|print|var |let |const"; then
+        echo "code"
+    elif echo "$line_lower" | grep -q -E "bash|shell|terminal|command|echo|grep|awk|sed"; then
+        echo "bash"
+    elif echo "$line_lower" | grep -q -E "linux|kernel|system|process|memory|file system|permission"; then
+        echo "linux"
+    elif echo "$line_lower" | grep -q -E "docker|container|image|build|push|pull|registry"; then
+        echo "docker"
+    elif echo "$line_lower" | grep -q -E "network|tcp|ip|dns|http|ssl|port|firewall"; then
+        echo "networking"
+    elif echo "$line_lower" | grep -q -E "security|auth|encrypt|decrypt|key|certificate|password"; then
+        echo "security"
+    elif echo "$line_lower" | grep -q -E "^(# |## )?conclusion|summary|final|wrap up"; then
+        echo "conclusion"
+    else
+        echo "explanation"
+    fi
+}
