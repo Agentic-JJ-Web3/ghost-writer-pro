@@ -106,4 +106,34 @@ get_session_end() {
     echo $(date -d "${time_range#*-}" +%s 2>/dev/null || echo 0)
 }
 
+# Check if time is in work session 
+is_working_hours() {
+    local timestamp=$1
+    local hour=$(date -d "@$timestamp" +%H)
+    local min=$(date -d "@$timestamp" +%M)
+    local time_num=$((10#$hour * 100 + 10#$min))
+    
+    case "$SESSION_PATTERN" in
+        "coding")
+            [[ $time_num -ge 900 && $time_num -lt 1200 ]] || \
+            [[ $time_num -ge 1330 && $time_num -lt 1800 ]] || \
+            [[ $time_num -ge 2000 && $time_num -lt 2300 ]]
+            ;;
+        "academic")
+            [[ $time_num -ge 800 && $time_num -lt 1200 ]] || \
+            [[ $time_num -ge 1400 && $time_num -lt 1700 ]] || \
+            [[ $time_num -ge 1900 && $time_num -lt 2200 ]]
+            ;;
+        "casual")
+            [[ $time_num -ge 1000 && $time_num -lt 1400 ]] || \
+            [[ $time_num -ge 1500 && $time_num -lt 1900 ]] || \
+            [[ $time_num -ge 2100 && $time_num -lt 0100 ]]
+            ;;
+        *)  # balanced
+            [[ $time_num -ge 800 && $time_num -lt 1200 ]] || \
+            [[ $time_num -ge 1300 && $time_num -lt 1700 ]] || \
+            [[ $time_num -ge 1900 && $time_num -lt 2200 ]]
+            ;;
+    esac
+}
   
