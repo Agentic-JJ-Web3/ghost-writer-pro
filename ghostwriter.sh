@@ -281,3 +281,27 @@ type_word() {
     echo -n "$word " >> "$OUTPUT"
     echo "$typed"
 }
+
+# Simulate paragraph rewrite
+rewrite_paragraph() {
+    local current_time="$1"
+    
+    # Get last paragraph from output
+    local last_para=$(tac "$OUTPUT" 2>/dev/null | grep -v "^$" | head -1 || echo "")
+    if [[ -z "$last_para" ]]; then
+        return
+    fi
+    
+    [[ -n "$VERBOSE" ]] && echo -e "\n✍️  Rewriting paragraph..."
+    
+    # Simulate thinking
+    local think_time=$((RANDOM % 30 + 10))
+    sleep "$think_time"
+    current_time=$((current_time + think_time))
+    
+    # Backspace through the paragraph
+    local word_count=$(echo "$last_para" | wc -w)
+    for ((i=0; i<word_count; i++)); do
+        echo -n "" >> "$OUTPUT"  # Remove last word
+        sleep 0.2
+    done
