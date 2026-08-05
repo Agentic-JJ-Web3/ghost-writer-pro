@@ -86,5 +86,24 @@ touch "$OUTPUT"
 > "$OUTPUT"
 git rev-parse --is-inside-work-tree >/dev/null
 
+##############################
+# Time utilities
+##############################
+START_EPOCH=$(date -d "$START" +%s)
+END_EPOCH=$(date -d "$END" +%s)
+TOTAL_SECONDS=$((END_EPOCH - START_EPOCH))
+
+# Parse session times
+get_session_start() {
+    local session=$1
+    local time_range=${SESSIONS[$session]}
+    echo $(date -d "${time_range%-*}" +%s 2>/dev/null || echo 0)
+}
+
+get_session_end() {
+    local session=$1
+    local time_range=${SESSIONS[$session]}
+    echo $(date -d "${time_range#*-}" +%s 2>/dev/null || echo 0)
+}
 
   
