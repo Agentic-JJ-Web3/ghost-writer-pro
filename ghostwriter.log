@@ -149,3 +149,58 @@
 [2026-08-05 02:35:54] [DEBUG] Commit: 2026-08-05 14:44:24 - Clarify process
 [2026-08-05 02:36:02] [DEBUG] Commit: 2026-08-05 15:33:46 - Wrap discussion
 [2026-08-05 02:36:04] [SUCCESS] Writing complete!
+[2026-08-05 03:05:28] [INFO] Loading configuration from: /c/Users/HP/Desktop/Ghostwriter/ghostwriter.yml
+[2026-08-05 03:05:29] [DEBUG] Configuration loaded:
+[2026-08-05 03:05:29] [DEBUG]   INPUT: my-article.md
+[2026-08-05 03:05:29] [DEBUG]   OUTPUT: final-article.md
+[2026-08-05 03:05:29] [DEBUG]   START: 2026-07-19 09:00
+[2026-08-05 03:05:30] [DEBUG]   END: 2026-07-20 17:00
+[2026-08-05 03:05:30] [DEBUG]   MIN_DELAY: 2
+[2026-08-05 03:05:30] [DEBUG]   MAX_DELAY: 8
+[2026-08-05 03:05:30] [DEBUG] Validation passed
+[2026-08-05 03:05:31] [DEBUG]   Start epoch: 1784448000
+[2026-08-05 03:05:31] [DEBUG]   End epoch: 1784563200
+[2026-08-05 03:05:31] [INFO] Word count: 39
+[2026-08-05 03:05:31] [INFO] Total timeline: 115200 seconds (32 hours)
+[2026-08-05 03:05:31] [INFO] Average spacing: 2953 seconds
+[2026-08-05 03:05:31] [INFO] Starting fresh writing session
+[2026-08-05 03:05:32] [INFO] Starting main writing loop...
+[2026-08-05 03:05:32] [INFO] Total words: 39
+[2026-08-05 03:05:33] [DEBUG] Commit: 2026-07-19 09:00:00 - Add heading: My Great Article
+[2026-08-05 03:05:36] [DEBUG] Commit: 2026-07-19 09:00:00 - Add spacing
+[2026-08-05 03:05:38] [DEBUG] Commit: 2026-07-19 09:00:00 - Add heading: Introduction
+[2026-08-05 03:05:44] [DEBUG] Commit: 2026-07-19 09:00:00 - Clarify process
+[2026-08-05 03:05:48] [DEBUG] Commit: 2026-07-19 09:49:16 - Explain mechanism
+[2026-08-05 03:05:52] [DEBUG] Commit: 2026-07-19 10:38:23 - Describe behavior
+[2026-08-05 03:05:57] [DEBUG] Commit: 2026-07-19 11:27:45 - Frame problem
+[2026-08-05 03:06:02] [DEBUG] Commit: 2026-07-19 12:17:01 - Explain mechanism
+[2026-08-05 03:06:06] [DEBUG] Commit: 2026-07-19 13:06:06 - Explain mechanism
+[2026-08-05 03:06:11] [DEBUG] Commit: 2026-07-19 13:55:15 - Clarify process
+[2026-08-05 03:06:17] [DEBUG] Commit: 2026-07-19 14:44:24 - Describe behavior
+[2026-08-05 03:06:21] [DEBUG] Commit: 2026-07-19 15:33:30 - Detail implementation
+[2026-08-05 03:06:28] [DEBUG] Commit: 2026-07-19 16:22:40 - Detail implementation
+[2026-08-05 03:06:29] [ACTION] ☕ Short break (74s)
+[2026-08-05 03:07:13] [DEBUG] Commit: 2026-07-19 09:01:14 - Add spacing
+[2026-08-05 03:07:15] [DEBUG] Commit: 2026-07-19 09:01:14 - Add heading: Main Content
+[2026-08-05 03:07:21] [DEBUG] Commit: 2026-07-19 09:01:14 - Clarify process
+[2026-08-05 03:07:25] [DEBUG] Commit: 2026-07-19 09:50:25 - Detail implementation
+[2026-08-05 03:07:33] [DEBUG] Commit: 2026-07-19 10:39:44 - Fix typo
+[2026-08-05 03:07:36] [DEBUG] Commit: 2026-07-19 10:39:42 - Clarify process
+[2026-08-05 03:07:40] [DEBUG] Commit: 2026-07-19 11:29:01 - Detail implementation
+[2026-08-05 03:07:45] [DEBUG] Commit: 2026-07-19 12:18:18 - Detail implementation
+[2026-08-05 03:07:50] [DEBUG] Commit: 2026-07-19 13:07:26 - Implement logic
+[2026-08-05 03:07:56] [DEBUG] Commit: 2026-07-19 13:56:33 - Describe behavior
+[2026-08-05 03:08:01] [DEBUG] Commit: 2026-07-19 14:45:40 - Clarify process
+[2026-08-05 03:08:07] [DEBUG] Commit: 2026-07-19 15:34:44 - Clarify process
+[2026-08-05 03:08:09] [DEBUG] Commit: 2026-07-19 09:01:14 - Add spacing
+[2026-08-05 03:08:11] [DEBUG] Commit: 2026-07-19 09:01:14 - Add heading: Conclusion
+[2026-08-05 03:08:19] [DEBUG] Commit: 2026-07-19 09:01:14 - Summarize key points
+[2026-08-05 03:08:22] [DEBUG] Commit: 2026-07-19 09:50:23 - Describe behavior
+[2026-08-05 03:08:27] [DEBUG] Commit: 2026-07-19 10:39:33 - Explain mechanism
+[2026-08-05 03:08:34] [DEBUG] Commit: 2026-07-19 11:28:52 - Clarify process
+[2026-08-05 03:08:38] [DEBUG] Commit: 2026-07-19 12:17:57 - Describe behavior
+[2026-08-05 03:08:45] [DEBUG] Commit: 2026-07-19 13:07:03 - Describe behavior
+[2026-08-05 03:08:49] [DEBUG] Commit: 2026-07-19 13:56:11 - Detail implementation
+[2026-08-05 03:08:54] [DEBUG] Commit: 2026-07-19 14:45:16 - Explain mechanism
+[2026-08-05 03:09:02] [DEBUG] Commit: 2026-07-19 15:34:32 - Final thoughts
+[2026-08-05 03:09:03] [SUCCESS] Writing complete!
