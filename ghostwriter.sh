@@ -43,3 +43,18 @@ declare -A SESSIONS=(
     ["evening"]="18:00-23:00"
     ["night"]="23:00-06:00"
 )
+
+# Context-aware message templates by topic
+declare -A CONTEXT_MSGS=(
+    ["introduction"]="Introduce concept|Set context|Open discussion|Frame problem"
+    ["explanation"]="Explain mechanism|Clarify process|Describe behavior|Detail implementation"
+    ["example"]="Add example|Show usage|Demonstrate with code|Provide illustration"
+    ["code"]="Write cdoe block|Add function|Implement logic|Define structure"
+    ["bash"]="ExplainBash syntaxt|Add shell command|Describe pipeline|show script"
+      ["linux"]="Describe Linux feature|Explain kernel concept|Add system call|Detail filesystem"
+    ["docker"]="Add Dockerfile|Explain container|Show docker command|Describe image build"
+    ["networking"]="Explain protocol|Add network config|Describe routing|Show connectivity"
+    ["security"]="Discuss security|Add auth method|Explain encryption|Detail permissions"
+    ["conclusion"]="Summarize key points|Conclude argument|Wrap discussion|Final thoughts"
+    ["editing"]="Refine paragraph|Improve wording|Enhance clarity|Polish content"
+)
