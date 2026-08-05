@@ -67,7 +67,7 @@ GhostWriter Pro is a sophisticated bash script that transforms a markdown file i
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ghostwriter.git
+git clone https://github.com/Agentic-JJ-Web3/ghost-writer-pro.git
 cd ghostwriter
 
 # Make the script executable
@@ -327,7 +327,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ghostwriter.git
+git clone https://github.com/Agentic-JJ-Web3/ghostwriter.git
 cd ghostwriter
 
 # Make the script executable
@@ -362,8 +362,8 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 📬 Contact
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/ghostwriter/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/ghostwriter/discussions)
+- **Issues**: [GitHub Issues](https://github.com/Agentic-JJ-Web3/ghost-writer-pro/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Agentic-JJ-Web3/ghost-writer-pro/discussions)
 
 ---
 
