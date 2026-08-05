@@ -76,4 +76,15 @@ while [[ $# -gt 0 ]]; do
         *) echo "Unknown: $1"; exit 1 ;;
     esac
 done
+
+##############################
+# Validation
+##############################
+
+[[ -f "$INPUT" ]] || { echo "Input file not found."; exit 1; }
+touch "$OUTPUT"
+> "$OUTPUT"
+git rev-parse --is-inside-work-tree >/dev/null
+
+
   
