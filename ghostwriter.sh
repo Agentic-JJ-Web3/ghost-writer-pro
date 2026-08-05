@@ -22,3 +22,16 @@
 #     --session "coding" \
 #     --verbose
 ###############################################################################
+
+set -e
+
+##############################
+# Defaults & Configurations
+##############################
+
+TYPING_SPEED=50     # Characters per second (avarage)
+TYPO_RATE=0.03      # Probability of typo per character
+TYPO_FIX_DELAY=2      # Seconds before fixing a typo
+REWRITE_PROB=0.15     # Probability of paragraph rewrite
+SESSION_PATTERN="balanced" # Options: balanced, coding, academic, casual
+
