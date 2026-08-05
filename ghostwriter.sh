@@ -136,4 +136,14 @@ is_working_hours() {
             ;;
     esac
 }
-  
+
+# Calculate next working time
+next_working_time() {
+    local current=$1
+    local attempts=0
+    while ! is_working_hours $current && [[ $attempts -lt 100 ]]; do
+        current=$((current + 300))  # Jump 5 minutes
+        attempts=$((attempts + 1))
+    done
+    echo $current
+}
