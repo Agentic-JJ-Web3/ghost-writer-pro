@@ -5,4 +5,4 @@ This is the introduction to my amazing article about technology.
 ## Main Content
 Here I explain all the important concepts in detail. 
 ## Conclusion
-Finally, I wrap everything up with 
+Finally, I wrap everything up with a 
